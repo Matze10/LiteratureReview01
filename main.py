@@ -16,40 +16,14 @@ import dbm
 #File Paths 
 #Scopus Files
 scopus_files = [
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-1st-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-2nd-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-3rd-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-4th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-5th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-6th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-7th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Scopus/scopus-8th-search.csv'
 ]
 
 #Web Of Science Files 
 wos_files = [
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-1st-a-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-1st-b-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-2nd-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-3rd-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-4th-a-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-4th-b-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-5th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-6th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-7th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/Web of Science/WOS-8th-search.csv', 
 ]
 
 #Springer files
 springer_files = [
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-1st-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-2nd-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-3rd-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-4th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-5th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-6th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-7th-search.csv',
-'/mnt/c/Users/MatthiasReese/OneDrive - Griffith University/2. University Griffith/5. Literature/Literature Review/Pollinator Biodiversity/SpringerLink/Springerlink-8th-search.csv',
 ]
 
 async def main():
