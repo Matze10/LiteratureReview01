@@ -8,13 +8,13 @@ flowchart TD
     classDef review fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,rx:8px
     classDef analysis fill:#FCE4EC,stroke:#E91E63,stroke-width:2px,rx:8px
 
-    subgraph "Data Sources"
+    subgraph DataSources [Data Sources]
         direction LR
         Scopus[":mag_right: Scopus"]:::database
         CrossRef[":link: CrossRef"]:::database
     end
 
-    subgraph "Processing Pipeline"
+    subgraph ProcessingPipeline [Processing Pipeline]
         direction TB
         DataLoader["Data Loader\n(Extract Data)"]:::process
         SQLGen["SQLite DB Generator\n(Store in DB)"]:::database
@@ -22,12 +22,12 @@ flowchart TD
         SaveToDB["Save Refined Data to DB"]:::database
     end
 
-    subgraph "Screening & Sorting"
+    subgraph ScreeningSorting [Screening & Sorting]
         ASReview["ASReview\n<img src='https://asreview.ai/static/media/logo.924259ba.svg' width='50'/>"]:::review
         SaveScreened["Save Sorted Papers to DB"]:::database
     end
 
-    subgraph "Analysis & Visualization"
+    subgraph AnalysisVisualization [Analysis & Visualization]
         AnalysisR["R Analysis\n(Generate Insights)"]:::analysis
     end
 
@@ -40,10 +40,4 @@ flowchart TD
     SaveToDB --> ASReview
     ASReview --> SaveScreened
     SaveScreened --> AnalysisR
-
-    %% Styling adjustments
-    style "Data Sources" fill:#F8F8F8,stroke:#888,stroke-width:2px,rx:10px
-    style "Processing Pipeline" fill:#E3F2FD,stroke:#2196F3,stroke-width:2px,rx:10px
-    style "Screening & Sorting" fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,rx:10px
-    style "Analysis & Visualization" fill:#FCE4EC,stroke:#E91E63,stroke-width:2px,rx:10px
 
