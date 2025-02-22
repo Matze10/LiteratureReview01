@@ -28,10 +28,10 @@ flowchart TD
     DBSave3 --> AnalysisR["Analysis R"]:::analysis
 
     %% invisible nodes for spacing
-    invisible1[""]:::invisible
-    invisible2[""]:::invisible
-    invisible3[""]:::invisible
-    invisible4[""]:::invisible
+    invisible1[""]
+    invisible2[""]
+    invisible3[""]
+    invisible4[""]
 
     style Databases fill:#f8f8f8,stroke:#888,stroke-width:2px,rx:10px
 
@@ -43,3 +43,5 @@ flowchart TD
     invisible3 --> ScopusDB
     DBSave2 --> invisible4
     invisible4 --> CrossRefDB
+
+    class invisible1,invisible2,invisible3,invisible4 invisible;
