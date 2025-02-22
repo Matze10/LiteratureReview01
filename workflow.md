@@ -28,7 +28,7 @@ flowchart LR
     DataSources --> Load
     Load --> DB1
     DB1 -->|Request| ScopusDB
-    DB1 -->|Request (Fallback)| CrossRefDB
+    DB1 -->|Request - Fallback| CrossRefDB
     ScopusDB -->|Response| Valid
     CrossRefDB -->|Response| Valid
     Valid --> DB2
