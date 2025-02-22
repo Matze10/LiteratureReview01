@@ -1,47 +1,49 @@
 ```mermaid
-%%{init: {  'theme': 'base',  'themeVariables': {    'fontSize': '16px',    'fontFamily': 'Helvetica Neue, Helvetica, Arial, sans-serif',    'lineWidth': '2px',    'primaryBorderColor': '#555',    'primaryColor': '#f0f0f0',    'primaryTextColor': '#333',    'secondaryColor': '#e0e0e0',    'secondaryTextColor': '#444',    'tertiaryColor': '#d0d0d0',    'tertiaryTextColor': '#555'  }}}%%
+%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'Helvetica Neue, Helvetica, Arial, sans-serif', 'lineWidth': '2px', 'primaryBorderColor': '#555', 'primaryColor': '#f0f0f0', 'primaryTextColor': '#333', 'secondaryColor': '#e0e0e0', 'secondaryTextColor': '#444', 'tertiaryColor': '#d0d0d0', 'tertiaryTextColor': '#555' }}}%%
 flowchart TD
 
-    %% Styling
-    classDef database fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,rx:10px
-    classDef process fill:#bbdefb,stroke:#2196f3,stroke-width:2px,rx:10px
-    classDef review fill:#fff3e0,stroke:#ff9800,stroke-width:2px,rx:10px
-    classDef analysis fill:#fce4ec,stroke:#e91e63,stroke-width:2px,rx:10px
-    classDef invisible opacity:0;
+    %% Define styles
+    classDef database fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px,rx:8px
+    classDef process fill:#BBDEFB,stroke:#2196F3,stroke-width:2px,rx:8px
+    classDef review fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,rx:8px
+    classDef analysis fill:#FCE4EC,stroke:#E91E63,stroke-width:2px,rx:8px
 
-    subgraph Databases [Databases]
+    subgraph "Data Sources"
         direction LR
-        ScopusDB[":mag_right: Scopus"]:::database
-        CrossRefDB[":link: CrossRef"]:::database
+        Scopus[":mag_right: Scopus"]:::database
+        CrossRef[":link: CrossRef"]:::database
     end
 
-    DataLoader["DataLoader"]:::process --> DBSave1["DBSave"]:::database
-    DBSave1 --> RefinementCall["Refinement call\nScopus / CrossRef"]:::process
+    subgraph "Processing Pipeline"
+        direction TB
+        DataLoader["Data Loader\n(Extract Data)"]:::process
+        SQLGen["SQLite DB Generator\n(Store in DB)"]:::database
+        DocProcessing["Document Processing\n(Refinement & Cleaning)"]:::process
+        SaveToDB["Save Refined Data to DB"]:::database
+    end
 
-    RefinementCall -->|NotFound| CrossRefDB
-    RefinementCall -->|Success & Validate| SuccessValidate["Success & Validate"]:::process
-    SuccessValidate --> DBSave2["DBSave"]:::database
+    subgraph "Screening & Sorting"
+        ASReview["ASReview\n<img src='https://asreview.ai/static/media/logo.924259ba.svg' width='50'/>"]:::review
+        SaveScreened["Save Sorted Papers to DB"]:::database
+    end
 
-    DBSave2 --> ASReview["ASReview\n<img src='https://asreview.ai/static/media/logo.924259ba.svg' width='50'/>"]:::review
+    subgraph "Analysis & Visualization"
+        AnalysisR["R Analysis\n(Generate Insights)"]:::analysis
+    end
 
-    ASReview --> DBSave3["DBSave"]:::database
-    DBSave3 --> AnalysisR["Analysis R"]:::analysis
+    %% Workflow connections
+    Scopus --> DataLoader
+    CrossRef --> DataLoader
+    DataLoader --> SQLGen
+    SQLGen --> DocProcessing
+    DocProcessing --> SaveToDB
+    SaveToDB --> ASReview
+    ASReview --> SaveScreened
+    SaveScreened --> AnalysisR
 
-    %% invisible nodes for spacing
-    invisible1[""]
-    invisible2[""]
-    invisible3[""]
-    invisible4[""]
+    %% Styling adjustments
+    style "Data Sources" fill:#F8F8F8,stroke:#888,stroke-width:2px,rx:10px
+    style "Processing Pipeline" fill:#E3F2FD,stroke:#2196F3,stroke-width:2px,rx:10px
+    style "Screening & Sorting" fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,rx:10px
+    style "Analysis & Visualization" fill:#FCE4EC,stroke:#E91E63,stroke-width:2px,rx:10px
 
-    style Databases fill:#f8f8f8,stroke:#888,stroke-width:2px,rx:10px
-
-    ScopusDB --> invisible1
-    invisible1 --> AnalysisR
-    CrossRefDB --> invisible2
-    invisible2 --> ASReview
-    DBSave1 --> invisible3
-    invisible3 --> ScopusDB
-    DBSave2 --> invisible4
-    invisible4 --> CrossRefDB
-
-    class invisible1,invisible2,invisible3,invisible4 invisible;
