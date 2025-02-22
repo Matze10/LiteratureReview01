@@ -15,14 +15,16 @@ flowchart TD
         WoS[":books: Web of Science"]:::database
     end
 
-    %% Refinement (Using Scopus First, Then CrossRef)
-    Refinement["Refinement & Validation"]:::process
-    CrossRef[":link: CrossRef"]:::database
+    %% Initial Data Load
+    DataLoader["Load Data into Database"]:::process
 
-    %% Processing Pipeline
+    %% Refinement Process
+    Refinement["Refinement (Scopus First, CrossRef if Needed)"]:::process
+    Validation["Validate Refinement"]:::process
+
+    %% Processing & Storage
     subgraph ProcessingPipeline [Processing & Storage]
         direction TB
-        DataLoader["Data Loader"]:::process
         SQLGen["SQLite DB Generator"]:::database
         DocProcessing["Document Processing"]:::process
         SaveToDB["Save Refined Data to DB"]:::database
@@ -36,20 +38,18 @@ flowchart TD
 
     %% Analysis
     subgraph AnalysisVisualization [Analysis & Visualization]
-        AnalysisR["R Analysis\n(Generate Insights)"]:::analysis
+        AnalysisR["Load Data into R for Analysis"]:::analysis
     end
 
     %% Workflow connections (L-Shaped)
-    Scopus --> Refinement
-    WoS --> Refinement
-    Refinement -->|Found| DataLoader
-    Refinement -->|Not Found| CrossRef
-    CrossRef --> DataLoader
-
+    Scopus --> DataLoader
+    WoS --> DataLoader
     DataLoader --> SQLGen
-    SQLGen --> DocProcessing
-    DocProcessing --> SaveToDB
+    SQLGen --> Refinement
+    Refinement -->|Refined| Validation
+    Validation --> SaveToDB
     SaveToDB --> ASReview
     ASReview --> SaveScreened
     SaveScreened --> AnalysisR
+
 
