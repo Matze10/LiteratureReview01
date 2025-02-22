@@ -8,32 +8,44 @@ flowchart TD
     classDef review fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,rx:8px
     classDef analysis fill:#FCE4EC,stroke:#E91E63,stroke-width:2px,rx:8px
 
-    subgraph DataSources [Data Sources]
-        direction LR
+    %% Databases (Starting Point)
+    subgraph DataSources [Databases]
+        direction TB
         Scopus[":mag_right: Scopus"]:::database
-        CrossRef[":link: CrossRef"]:::database
+        WoS[":books: Web of Science"]:::database
     end
 
-    subgraph ProcessingPipeline [Processing Pipeline]
+    %% Refinement (Using Scopus First, Then CrossRef)
+    Refinement["Refinement & Validation"]:::process
+    CrossRef[":link: CrossRef"]:::database
+
+    %% Processing Pipeline
+    subgraph ProcessingPipeline [Processing & Storage]
         direction TB
-        DataLoader["Data Loader\n(Extract Data)"]:::process
-        SQLGen["SQLite DB Generator\n(Store in DB)"]:::database
-        DocProcessing["Document Processing\n(Refinement & Cleaning)"]:::process
+        DataLoader["Data Loader"]:::process
+        SQLGen["SQLite DB Generator"]:::database
+        DocProcessing["Document Processing"]:::process
         SaveToDB["Save Refined Data to DB"]:::database
     end
 
+    %% Screening & Sorting
     subgraph ScreeningSorting [Screening & Sorting]
         ASReview["ASReview\n<img src='https://asreview.ai/static/media/logo.924259ba.svg' width='50'/>"]:::review
         SaveScreened["Save Sorted Papers to DB"]:::database
     end
 
+    %% Analysis
     subgraph AnalysisVisualization [Analysis & Visualization]
         AnalysisR["R Analysis\n(Generate Insights)"]:::analysis
     end
 
-    %% Workflow connections
-    Scopus --> DataLoader
+    %% Workflow connections (L-Shaped)
+    Scopus --> Refinement
+    WoS --> Refinement
+    Refinement -->|Found| DataLoader
+    Refinement -->|Not Found| CrossRef
     CrossRef --> DataLoader
+
     DataLoader --> SQLGen
     SQLGen --> DocProcessing
     DocProcessing --> SaveToDB
