@@ -1,6 +1,6 @@
 ```mermaid
 %%{init: {  'theme': 'base',  'themeVariables': {    'fontSize': '16px',    'fontFamily': 'Helvetica Neue, Helvetica, Arial, sans-serif',    'lineWidth': '2px',    'primaryBorderColor': '#555',    'primaryColor': '#f0f0f0',    'primaryTextColor': '#333',    'secondaryColor': '#e0e0e0',    'secondaryTextColor': '#444',    'tertiaryColor': '#d0d0d0',    'tertiaryTextColor': '#555'  }}}%%
-flowchart LR
+flowchart TD
     subgraph Databases [Databases]
         direction LR
         ScopusDB[":mag_right: Scopus"]:::database
@@ -26,3 +26,20 @@ flowchart LR
     classDef analysis fill:#fce4ec,stroke:#e91e63,stroke-width:2px,rx:10px
 
     style Databases fill:#f8f8f8,stroke:#888,stroke-width:2px,rx:10px
+
+    %% invisible nodes for spacing
+    invisible1[""]:::invisible
+    invisible2[""]:::invisible
+    invisible3[""]:::invisible
+    invisible4[""]:::invisible
+
+    classDef invisible opacity:0;
+
+    ScopusDB --> invisible1
+    invisible1 --> AnalysisR
+    CrossRefDB --> invisible2
+    invisible2 --> ASReview
+    DBSave1 --> invisible3
+    invisible3 --> ScopusDB
+    DBSave2 --> invisible4
+    invisible4 --> CrossRefDB
