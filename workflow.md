@@ -1,5 +1,5 @@
 ```mermaid
-flowchart TD
+flowchart LR
     A[Scopus] --> C{fa:fa-database SQL Database};
     B[Web of Science] --> C;
     C -- API --> D[Refine Scopus Database];
