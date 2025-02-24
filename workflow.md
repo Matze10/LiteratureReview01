@@ -1,58 +1,30 @@
 ```mermaid
-%%{init: { 'theme': 'base', 'themeVariables': { 'fontSize': '16px', 'fontFamily': 'Helvetica Neue, Helvetica, Arial, sans-serif', 'lineWidth': '2px', 'primaryBorderColor': '#555', 'primaryColor': '#f0f0f0', 'primaryTextColor': '#333', 'secondaryColor': '#e0e0e0', 'secondaryTextColor': '#444', 'tertiaryColor': '#d0d0d0', 'tertiaryTextColor': '#555' }}}%%
-graph TD
+flowchart TD
+    A[Scopus] --> C{fa:fa-database SQL Database};
+    B[Web of Science] --> C;
+    C -- API --> D[Refine Scopus Database];
+    D -- No Successful --> E[Refine Crossref Database];
+    D -- Success --> F{fa:fa-database Storage SQL DB};
+    E -- Success --> F;
+    F -- convert --> G{fa:fa-r-project Analysis with R};
 
-    %% Define styles
-    classDef database fill:#E8F5E9,stroke:#4CAF50,stroke-width:2px,rx:8px
-    classDef process fill:#BBDEFB,stroke:#2196F3,stroke-width:2px,rx:8px
-    classDef review fill:#FFF3E0,stroke:#FF9800,stroke-width:2px,rx:8px
-    classDef analysis fill:#FCE4EC,stroke:#E91E63,stroke-width:2px,rx:8px
-    classDef storage fill:#D1C4E9,stroke:#673AB7,stroke-width:2px,rx:8px
-
-    %% Data Sources
-    subgraph Sources [Data Sources]
-        direction TB
-        Scopus[":mag_right: Scopus"]:::database
-        WoS[":books: Web of Science"]:::database
+    subgraph Data Acquisition
+        A;
+        B;
     end
-
-    %% Database Storage
-    Database["SQLite Database"]:::storage
-
-    %% Refinement Process
-    Refinement["Refinement Engine\n(Scopus First, Then CrossRef)"]:::process
-    Validation["Validation Module"]:::process
-    CrossRef[":link: CrossRef"]:::database
-
-    %% Processing Pipeline
-    subgraph ProcessingPipeline [Processing System]
-        direction TB
-        DataLoader["Data Loader"]:::process
-        DocProcessing["Document Processing"]:::process
-        SaveToDB["Save Refined Data"]:::storage
+    subgraph Database and Refinement
+        C;
+        D;
+        E;
+        F;
     end
-
-    %% Screening & Sorting
-    subgraph ScreeningSorting [Screening & Sorting]
-        ASReview["ASReview Sorting"]:::review
-        SaveScreened["Store Sorted Papers"]:::storage
+    subgraph Analysis and Visualization
+        G;
     end
-
-    %% Analysis
-    subgraph AnalysisVisualization [Analysis System]
-        AnalysisR["Load Data into R\nfor Analysis & Visualization"]:::analysis
-    end
-
-    %% Workflow Connections
-    Scopus --> Database
-    WoS --> Database
-    Database --> DataLoader
-    DataLoader --> Refinement
-    Refinement -->|Found| Validation
-    Refinement -->|Not Found| CrossRef
-    CrossRef --> Refinement
-    Validation --> SaveToDB
-    SaveToDB --> ASReview
-    ASReview --> SaveScreened
-    SaveScreened --> AnalysisR
-
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#ccf,stroke:#333,stroke-width:2px
+    style D fill:#ccf,stroke:#333,stroke-width:2px
+    style E fill:#ccf,stroke:#333,stroke-width:2px
+    style F fill:#ccf,stroke:#333,stroke-width:2px
+    style G fill:#cfc,stroke:#333,stroke-width:2px
